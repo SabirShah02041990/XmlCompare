@@ -1,68 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using XmlBusinessLayer;
-
-namespace XmlComparator
-{
-    public class TestXmlCompareHandler : IXmlCompareHandler
-    {
-        public void ElementAdded(ElementAddedEventArgs e)
+ static void Main(string[] args)
         {
-            Console.WriteLine("++E: {0,-8}: {1}", e.LineNumber, e.XPath);
-            Console.WriteLine("   : {0}", e.Element);
-            //Console.WriteLine("   : {0}",e.Source);
-            Console.WriteLine();
+            try
+            {
+                var file1 = @"D:\sabir\XmlComparator\XmlComparator\TestFiles\App1.config";//@".\TestFiles\a1.config";
+                var file2 = @"D:\sabir\XmlComparator\XmlComparator\TestFiles\App2.config";//@".\TestFiles\a2.config";
+                
+                var handler = new TestXmlCompareHandler();
+
+                using (var comparer = new Comparer(handler))
+                {
+                    comparer.Compare(file1, file2, handler);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR: " + ex);
+            }
+            Console.Write("Press RETURN to close...");
+
+
+            Console.ReadLine();
         }
-
-        public void ElementRemoved(ElementRemovedEventArgs e)
-        {
-            Console.WriteLine("--E: {0,-8}: {1}", e.LineNumber, e.XPath);
-            Console.WriteLine("   : {0}", e.Element);
-            //Console.WriteLine("   : {0}", e.Source);
-            Console.WriteLine();
-            // Store the path of the textfile in your system 
-            string file = @"D:\sabir\Textfile.txt";
-
-            // To write all of the text to the file 
-            string s = e.XPath;
-            string text = "--E:" + e.LineNumber + " :" + s + Environment.NewLine + e.Element;
-            File.WriteAllText(file, text);
-        }
-
-        public void ElementChanged(ElementChangedEventArgs e)
-        {
-            Console.WriteLine("<>E: {0}", e.XPath);
-            Console.WriteLine("  o: {0,-8}: {1}", e.LeftLineNumber, e.LeftElement.Value);
-            Console.WriteLine("  n: {0,-8}: {1}", e.RightLineNumber, e.RightElement.Value);
-            Console.WriteLine();
-        }
-
-        public void AttributeAdded(AttributeAddedEventArgs e)
-        {
-            Console.WriteLine("++A: {0,-8}: {1}", e.LineNumber, e.XPath);
-            Console.WriteLine("   : {0}", e.Attribute.Value);
-            Console.WriteLine();
-        }
-
-        public void AttributeRemoved(AttributeRemovedEventArgs e)
-        {
-            Console.WriteLine("--A: {0,-8}: {1}", e.LineNumber, e.XPath);
-            Console.WriteLine("   : {0}", e.Attribute.Value);
-            Console.WriteLine();
-        }
-
-        public void AttributeChanged(AttributeChangedEventArgs e)
-        {
-            Console.WriteLine("<>A: {0}", e.XPath);
-            Console.WriteLine("  o: {0,-8}: {1}", e.LeftLineNumber, e.LeftAttribute.Value);
-            Console.WriteLine("  n: {0,-8}: {1}", e.RightLineNumber, e.RightAttribute.Value);
-
-            Console.WriteLine();
-        }
-
-    }
-}
