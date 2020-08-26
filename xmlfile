@@ -1,23 +1,43 @@
- static void Main(string[] args)
-        {
-            try
-            {
-                var file1 = @"D:\sabir\XmlComparator\XmlComparator\TestFiles\App1.config";//@".\TestFiles\a1.config";
-                var file2 = @"D:\sabir\XmlComparator\XmlComparator\TestFiles\App2.config";//@".\TestFiles\a2.config";
-                
-                var handler = new TestXmlCompareHandler();
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+<configSections>
+    
+  
+    <sectionGroup name="enyim.com">
+      <section name="memcached" type="Enyim.Caching.Configuration.MemcachedClientSection, Enyim.Caching" />
+    </sectionGroup>
 
-                using (var comparer = new Comparer(handler))
-                {
-                    comparer.Compare(file1, file2, handler);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ERROR: " + ex);
-            }
-            Console.Write("Press RETURN to close...");
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net"/>
+  </configSections>  
+  
+<appSettings>
+    <add key="initialdatafile" value="db-import.xml"/>
+    <add key="migratedatafile" value="db-migrate.xml"/>
+    <add key="GillSoft.DataAccess.CacheProvider.Firebird" value="default"/>
+    <add key="GillSoft.DataAccess.ShowSql" value="false"/>
+    <add key="GillSoft.DataAccess.BackupFolder" value=".\Backups"/>
+    <add key="GillSoft.DataAccess.SerializeNHConfiguration" value="true"/>
 
+    <add key="MsSql.DatabaseServer" value=".\SQLEXPRESS"/>
+    <add key="MsSql.Database" value="GSSalesManager"/>
+    <add key="MsSql.DatabaseUser" value=""/>
+    <add key="MsSql.DatabasePassword" value=""/>
 
-            Console.ReadLine();
-        }
+    <add key="MySql.DatabaseServer" value=""/>
+    <add key="MySql.Database" value="GSSalesManager"/>
+    <add key="MySql.DatabaseUser" value=""/>
+    <add key="MySql.DatabasePassword" value=""/>
+
+    <add key="GillSoft.DataAccess.CacheProvider.Firebird" value="default"/>
+    <add key="GillSoft.DataAccess.UsePreparedSql" value="true"/>
+  
+    <add key="Sabir" value=""/>  
+    <add key ="GillSoft.DataAccess.Cache.ExpiryTimeSeconds" value="3600" />
+    <!--<add key ="GillSoft.DataAccess.CacheProvider.MsSql" value="none" />
+    <add key ="GillSoft.DataAccess.CacheProvider.MySql" value="NHibernate.Caches.EnyimMemcached.MemCacheProvider, NHibernate.Caches.EnyimMemcached" />
+    <add key ="GillSoft.DataAccess.CacheProvider.Firebird" value="default" />
+    <add key ="GillSoft.DataAccess.ShowSql" value="false" />
+    -->
+    <add key="ClientSettingsProvider.ServiceUri" value=""/>
+  </appSettings>
+</configuration>
